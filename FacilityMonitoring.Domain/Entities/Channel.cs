@@ -28,6 +28,7 @@ namespace FacilityMonitoring.Domain.Entites {
     public abstract class Channel {
         public int Id { get; set; }
         public int SystemChannel { get; set; }
+        public bool IsVirtual { get;set;}
         public ChannelAddress ChannelAddress { get; set; }
         public ModbusAddress ModbusAddress { get; set; }
         public bool Connected { get; set; }
@@ -36,12 +37,13 @@ namespace FacilityMonitoring.Domain.Entites {
         public int ModbusDeviceId { get; set; }
         public ModbusDevice ModbusDevice { get; set; }
 
-        public ICollection<Alert> Alerts { get; set; }
         public ICollection<ChannelReading> Readings { get; set; }
     }
 
     public class DiscreteInput :Channel{
         public DiscreteState ChannelState { get; set; }
+        public DiscreteAlert Alert { get;set;}
+        
     }
 
     public class DiscreteOutput:Channel {
@@ -53,6 +55,8 @@ namespace FacilityMonitoring.Domain.Entites {
         public double CurrentValue { get; set; }
         public int SensorId { get; set; }
         public Sensor Sensor { get; set; }
+
+        public ICollection<AnalogAlert> Alerts { get;set;}
 
         public AnalogInput() {
             this.BypassAlert = false;
